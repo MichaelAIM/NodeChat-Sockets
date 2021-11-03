@@ -1,7 +1,19 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 
-const validarCampos = require('../middlewares/validar-campos');
+// const validarCampos = require('../middlewares/validar-campos');
+// const validarJWT = require('../middlewares/validar-JWT');
+// const {
+//     esAdminRole,
+//     tieneRol
+// } = require('../middlewares/validar-roles');
+const {
+    validarCampos,
+    validarJWT,
+    esAdminRole,
+    tieneRol
+} = require('../middlewares');
+
 const { 
     esRolValido,
     EmailExiste,
@@ -36,6 +48,9 @@ router.put('/:id', [
 ], userPut );
 
 router.delete('/:id', [
+    validarJWT,
+    // esAdminRole,
+    tieneRol('ADMIN_ROLE','VENTAS_ROLE'),
     check('id', 'No es un ID valido para mongoBD').isMongoId(),
     check('id').custom(ExisteUsuario_ID),
     validarCampos

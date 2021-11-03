@@ -60,6 +60,7 @@ const userPut = async(req, res = response) => {
 const userDelete = async(req, res) => {
     
     const id = req.params.id;
+    const usuarioAutenticado = req.usuario;
     //Eliminar Fisicamente
     // const usuario = await Usuario.findByIdAndDelete(id);
 
@@ -67,7 +68,8 @@ const userDelete = async(req, res) => {
 
 
     res.json({
-        usuario
+        usuario,
+        usuarioAutenticado
     });
 };
 
