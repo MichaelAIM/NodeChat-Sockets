@@ -32,7 +32,8 @@
         function handleCredentialResponse(response) {
             //Google Token 
             const body = {'id_token': response.credential};
-            const url = 'http://localhost:8080/api/auth/google';
+            // const url = 'http://localhost:8080/api/auth/google';
+            const url = 'https://restserver-node-michael.herokuapp.com/';
             const headers = {
                 'x-access-token': 'token-value',
                 'content-type': 'application/json'
