@@ -39,7 +39,7 @@
                 'content-type': 'application/json'
             }
             axios.post(url,body,{headers}).then( resp => {
-                location.reload();
+                // location.reload();
                 console.log(resp.data);
                 localStorage.setItem('email',resp.data.usuario.correo)
             }).catch(console.warn());
