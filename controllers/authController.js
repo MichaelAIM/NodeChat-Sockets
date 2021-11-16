@@ -77,13 +77,13 @@ const googleSignIn = async( req, res = response ) => {
                 msg:"Usuario Bloqueado"
             });
         }
-
+        console.log(usuario);
         const token = await generarJWT(usuario.id);
 
         res.json({
             msg:"Todo bien!",
             usuario,
-            id_token
+            token
         });
     } catch (error) {
         json.status(400).json({
@@ -93,7 +93,18 @@ const googleSignIn = async( req, res = response ) => {
 
 }
 
+const renovarToken = async(req, res = response ) => {
+    const { usuario } = req;
+    //Generar el Token JWT
+    const token = await generarJWT(usuario.id);
+    res.json({
+        usuario,
+        token
+    })
+}
+
 module.exports = {
     login,
-    googleSignIn
+    googleSignIn,
+    renovarToken
 }

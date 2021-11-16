@@ -5,55 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOOGLE SIGN-IN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" href="#" />
 </head>
-<body>
-    <h1>Google Sign-In</h1>
-    <hr>
+<body class="container">
+<div class="row mt-5">
 
-    <div id="g_id_onload"
+    <div class="col-sm-6">
+        <h1>Google Sign-In</h1>
+        <hr>
+        <br>
+        <div id="g_id_onload"
         data-client_id="393679385264-r7nvpa5k89g4qkdu2c0ee9d9r27hp9q7.apps.googleusercontent.com"
         data-auto_prompt="false"
         data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin"
-    data-type="standard"
-    data-size="medium"
-    data-theme="outline"
-    data-text="sign_in_with"
-    data-shape="rectangular"
-    data-logo_alignment="left">
+        </div>
+        <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+        </div>
+        <br>
+        <button class="btn btn-secondary btn-sm" id="google_signOut">Sign Out</button>
     </div>
 
-    <button id="google_signOut">Sign Out</button>
+    <div class="col-sm-6">
+        <h1>Login Manual</h1>
+        <hr>
+        <br>
+        <form action="" class="d-grid">
+            <input type="email" name="correo" class="form-control mb-2" placeholder="correo">
+            <input type="password" name="password" class="form-control mb-2" placeholder="contraseña">
+            <button class="btn btn-primary btn-sm float-end">Ingresar</button>
+        </form>
+    </div>
+
+</div>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        function handleCredentialResponse(response) {
-            //Google Token 
-            const body = {'id_token': response.credential};
-            // const url = 'http://localhost:8080/api/auth/google';
-            const url = 'https://restserver-node-michael.herokuapp.com/api/auth/google';
-            const headers = {
-                'x-access-token': 'token-value',
-                'content-type': 'application/json'
-            }
-            axios.post(url,body,{headers}).then( resp => {
-                // location.reload();
-                console.log(resp.data);
-                localStorage.setItem('email',resp.data.usuario.correo)
-            }).catch(console.warn());
-        }
-
-        const button = document.getElementById("google_signOut");
-        button.onclick = () => {
-            console.log(google.accounts.id);
-            google.accounts.id.disableAutoSelect();
-            google.accounts.id.revoke( localStorage.getItem( 'email' ), done => {
-                localStorage.clear();
-                location.reload();
-            });
-        }
-    </script>
+    <script src="./js/auth.js"></script>
 </body>
 </html>
